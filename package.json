@@ -1,0 +1,22 @@
+{
+  "name": "game_catchmind",
+  "version": "1.0.0",
+  "description": "출처 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=download&wr_id=17533&page=1",
+  "main": "Node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://smboy86:tjdals86@github.com/smboy86/node-catchmind.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smboy86/node-catchmind/issues"
+  },
+  "homepage": "https://github.com/smboy86/node-catchmind#readme",
+  "dependencies": {
+    "express": "^4.15.5"
+  }
+}
