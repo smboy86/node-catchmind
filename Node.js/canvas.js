@@ -1,6 +1,18 @@
+console.log('node 시작');
+
 var app = require('express')();
-var server = require('http').Server(app);
+//var server = require('http').Server(app);
+var server = app.listen(3000, function(){
+	console.log('port 3000');
+});
 var io = require('socket.io')(server);
+
+var router = require('/router/main.js')(app);
+
+app.set('views', _dirname + 'views');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+
 
 //# 
 var room_title = {};
@@ -205,4 +217,8 @@ io.on('connection', function(socket){
 });
 
 //#
-server.listen(3001);
+//server.listen(3001);
+
+//app.get('/', function(req, res){
+//	res.render('/Source/index.php');
+//});
