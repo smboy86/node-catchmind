@@ -1,6 +1,8 @@
 <?php
 	//# 헤더 호출
 	require dirname(__FILE__).'/include/header.html';
+	//echo 'get mode : ' + $_GET['mode'];
+	//echo 'get mode : ' + $_GET['mode'];
 
 	//# 처리
 	switch($_GET['mode'])
@@ -19,7 +21,12 @@
 		case 'DETAIL' :
 			require dirname(__FILE__).'/template/detail.php';
 			break;
+		default :
+			require dirname(__FILE__).'/template/login.php';
+			break;
 	}
+
+	//require dirname(__FILE__).'/template/detail.php';
 
 	//# 풋터 호출
 	require dirname(__FILE__).'/include/footer.html';

@@ -1,5 +1,0 @@
-RewriteEngine On
-
-RewriteRule "^$"					index.php?mode=LOGIN	[L]
-RewriteRule "^room$"				index.php?mode=LIST	[L]
-RewriteRule "^room/([0-9a-z]{32})$"		index.php?mode=DETAIL	[L]

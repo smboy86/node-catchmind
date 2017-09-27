@@ -59,7 +59,8 @@ function login()
 	$.cookie('nickname', $('#nickname').val(), {expires: 1});
 	socket.emit('saveNickname', {uid: $.cookie('uid'), nickname: $.cookie('nickname')});
 
-	// 
+	console.log('saveNickname');
+	
 	socket.on('saveNickname', function(response){
 		if(response.result == true)
 		{
