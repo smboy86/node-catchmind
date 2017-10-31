@@ -1,3 +1,15 @@
+<script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>	
+	<script type="text/javascript" charset="UTF-8" src="/javascripts/colorpicker.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/javascripts/jquery.cookie.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		var socket = io.connect();
+	//]]>
+	</script>
+
+	
 <div style="position:absolute; top:50%; left:50%; margin-top:-50px; margin-left:-400px;">
 	<table style="width:800px; height:100px; border-collapse:collapse;">
 		<colgroup>
@@ -7,7 +19,7 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<th style="height:100px; line-height:100px; border:1px solid #d0d0d0;">닉네임</th>
+				<th style="height:100px; line-height:100px; border:1px solid #d0d0d0;">닉네임111</th>
 				<td style="height:100px; line-height:50px; border:1px solid #d0d0d0; border-right-width:0px; padding:0 10px;"><input type="text" id="nickname" style="width:100%; height:50px; border:1px solid #cecece;" /></td>
 				<td style="height:100px; line-height:52px; border:1px solid #d0d0d0; border-left-width:0px; padding:0 10px;"><input type="button" value="접속" onclick="javascript:login();" style="width:100%; height:50px; border:1px solid #cecece; background-color:#efefef;" /></td>
 			</tr>
