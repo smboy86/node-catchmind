@@ -1,5 +1,8 @@
 <?php
-	$id = array_pop(explode('/', $_SERVER['REQUEST_URI']));
+	//$id = array_pop(explode('/', $_SERVER['REQUEST_URI']));
+	//$id = $_REQUEST['id'];
+	//$id = '04bykag16mv7kxy1wrze0xqhpgd3ew0a';
+	$id = $_GET['id'];
 ?>
 
 <style type="text/css">
@@ -13,7 +16,26 @@ canvas {cursor: crosshair;}
 #play-button > input[type=button]:hover {background-color:#0000ff;}
 -->
 </style>
+<script type="text/javascript">
+$(function() {
+    //alert('id : ' + getUrlParameter('id'));
+});
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+</script>
 <table style="width:1000px; margin:0 auto; border-collapse:collapse;">
 	<colgroup>
 		<col width="80%" />
@@ -22,7 +44,7 @@ canvas {cursor: crosshair;}
 	<tbody>
 		<tr>
 			<th id="room-title" style="height:30px; line-height:30px; background-color:#eeeeee; border:1px solid #cccccc;"></th>
-			<th style="height:30px; line-height:30px; background-color:#eeeeee; border:1px solid #cccccc;">플레이어 (<span id="player-count">0</span>명)</th>
+			<th style="height:30px; line-height:30px; background-color:#eeeeee; border:1px solid #cccccc;"> 플레이어  (<span id="player-count">0</span>명)</th>
 		</tr>
 		<tr>
 			<td rowspan="5" style="height:800px; border:1px solid #cccccc;">
@@ -317,6 +339,44 @@ $('#draw-tool').bind('mousemove', function(e){
 		socket.emit('drawCanvasCoords', {room_id: room_id, x: e.pageX - $('#draw-tool').offset().left, y: e.pageY - $('#draw-tool').offset().top, close: false});
 	}
 });
+
+/// 터치 추가
+$('#draw-tool').bind('touchstart', function(e){
+    //if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
+	if(e.type == 'touchstart'){
+        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+
+		isDraw = true;
+		context.beginPath();
+		context.moveTo(touch.pageX - $('#draw-tool').offset().left, touch.pageY - $('#draw-tool').offset().top);
+		socket.emit('initializeCanvasCoords', {room_id: room_id, x: touch.pageX - $('#draw-tool').offset().left, y: touch.pageY - $('#draw-tool').offset().top});
+	}
+});
+
+$('#draw-tool').bind('touchend', function(e){
+	if(e.type == 'touchmove'){
+        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+
+		isDraw = false;
+		context.lineTo(touch.pageX - $('#draw-tool').offset().left, touch.pageY - $('#draw-tool').offset().top);
+		context.stroke();
+		context.closePath();
+		socket.emit('drawCanvasCoords', {room_id: room_id, x: touch.pageX - $('#draw-tool').offset().left, y: touch.pageY - $('#draw-tool').offset().top, close: true});
+	}
+});
+
+$('#draw-tool').bind('touchmove', function(e){
+	if(e.type == 'touchmove'){
+        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		if(isDraw == true){
+			context.lineTo(touch.pageX - $('#draw-tool').offset().left, touch.pageY - $('#draw-tool').offset().top);
+			context.stroke();
+			socket.emit('drawCanvasCoords', {room_id: room_id, x: touch.pageX - $('#draw-tool').offset().left, y: touch.pageY - $('#draw-tool').offset().top, close: false});
+		}
+		
+	}
+});
+
 
 //# 
 $('#color-picker').ColorPicker({

@@ -1,20 +1,41 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-var router = express.Router();
+//var router = express.Router();
+//var router = require('./router/main')(app);
+
 var phpExpress = require('php-express')({
     binPath: 'php'
 });
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
 
 app.use(express.static('asset'));
+//app.use(express.static(path.join(__dirname,'public'))); // 잘 작동함
 
 app.set('views', path.join(__dirname, '/views'));
 app.engine('php', phpExpress.engine);
 app.set('view engine', 'php');
+
+// 간이 라우팅?
+// 기본
+app.get('/', function(req, res){	
+	res.redirect('/index.php');
+});
+
+// 방 리스트
+app.get('/room', function(req, res){	
+  res.redirect('/index.php?mode=LIST');
+});
+
+app.get('/room/:id', function(req, res){
+	res.redirect('/index.php?mode=DETAIL&id=' + req.params.id);
+});
+
+
 
 app.all(/.+\.php$/, phpExpress.router);
 
@@ -155,9 +176,7 @@ io.on('connection', function(socket){
 	});
 
 	//# 
-	socket.on('makeRoom', function(response){
-		console.log('makeRoom javascript');
-		
+	socket.on('makeRoom', function(response){		
 		var id = getRandString(32);
 
 		socket.join(id);
@@ -165,7 +184,7 @@ io.on('connection', function(socket){
 		room_title[id] = response.title;
 
 		io.sockets.emit('getRoomList', {room: getRoomList()});
-		socket.emit('joinRoom', {room_id: id});
+		//socket.emit('joinRoom', {room_id: id});
 	});
 
 	//# 

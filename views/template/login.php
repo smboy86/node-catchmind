@@ -8,7 +8,6 @@
 		var socket = io.connect();
 	//]]>
 	</script>
-
 	
 <div style="position:absolute; top:50%; left:50%; margin-top:-50px; margin-left:-400px;">
 	<table style="width:800px; height:100px; border-collapse:collapse;">
@@ -19,7 +18,7 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<th style="height:100px; line-height:100px; border:1px solid #d0d0d0;">닉네임111</th>
+				<th style="height:100px; line-height:100px; border:1px solid #d0d0d0;">닉네임</th>
 				<td style="height:100px; line-height:50px; border:1px solid #d0d0d0; border-right-width:0px; padding:0 10px;"><input type="text" id="nickname" style="width:100%; height:50px; border:1px solid #cecece;" /></td>
 				<td style="height:100px; line-height:52px; border:1px solid #d0d0d0; border-left-width:0px; padding:0 10px;"><input type="button" value="접속" onclick="javascript:login();" style="width:100%; height:50px; border:1px solid #cecece; background-color:#efefef;" /></td>
 			</tr>
